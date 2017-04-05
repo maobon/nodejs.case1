@@ -7,7 +7,7 @@
 var fs = require('fs');
 var handler = module.exports;
 
-
+// 显示首页
 handler.showIndex = function (req, res) {
     // 开放首页
     fs.readFile('./db.json', 'utf8', function (err, data) {
@@ -18,12 +18,13 @@ handler.showIndex = function (req, res) {
     })
 };
 
+// 显示添加英雄
 handler.showAdd = function (req, res) {
     res.render('add', {
         title: 'NodeJS'
     });
 };
-
+// 添加英雄
 handler.doAdd = function (req, res) {
     // 接收数据
     // (查询字符串格式) 客户端post发送过来的数据
@@ -91,6 +92,7 @@ handler.doAdd = function (req, res) {
 
 };
 
+// 处理静态资源
 handler.handleStaticRes = function (req, res) {
     // 开放页面资源请求
     var filePath = '.' + req.url;

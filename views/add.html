@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hero - Admin</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <style>
+    .hero-list img {
+      width: 50px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="page-header container">
+      <h1><a href="/">王者荣耀</a> <small>英雄管理器</small></h1>
+    </div>
+  </header>
+  <div class="container hero-list">
+
+    <!-- 
+      没有文件的普通表单 POST 提交
+        表单会把数据以查询字符串（放到请求体）的形式发送给服务端
+        由于表单 post 提交可能会有大量的数据，所以表单可能会分段发送多次表单数据到服务端
+     -->
+    <form id="form">
+      <div class="form-group">
+        <label for="exampleInputEmail1">英雄名称</label>
+        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="请输入英雄名称">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">英雄性别</label>
+        <div class="radio">
+          <label>
+            <input type="radio" name="gender" id="optionsRadios1" value="男" checked>男
+          </label>
+          <label>
+            <input type="radio" name="gender" id="optionsRadios1" value="女" checked>女
+          </label>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label for="exampleInputFile">英雄图片</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">请上传英雄图片.</p>
+      </div> -->
+      <button type="submit" class="btn btn-success">点击保存</button>
+    </form>
+  </div>
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <script>
+    $('#form').on('submit', function (e) {
+      // 禁用表单的默认提交行为
+      e.preventDefault();
+
+      $.ajax({
+        url: '/add',
+        type: 'post',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+          console.log(data)
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
+

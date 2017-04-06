@@ -28,7 +28,9 @@
         表单会把数据以查询字符串（放到请求体）的形式发送给服务端
         由于表单 post 提交可能会有大量的数据，所以表单可能会分段发送多次表单数据到服务端
      -->
-    <form id="form">
+
+    <!-- 如果表单需要提交图片 必须设置 enctype="multipart/form-data" -->
+    <form id="form" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="exampleInputEmail1">英雄名称</label>
             <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="请输入英雄名称">
@@ -44,32 +46,36 @@
                 </label>
             </div>
         </div>
-        <!-- <div class="form-group">
-          <label for="exampleInputFile">英雄图片</label>
-          <input type="file" id="exampleInputFile">
-          <p class="help-block">请上传英雄图片.</p>
-        </div> -->
+
+        <div class="form-group">
+            <label for="exampleInputFile">英雄图片</label>
+
+            <!-- 别忘了加上 name属性 -->
+            <input type="file" id="exampleInputFile" name="avatar">
+            <p class="help-block">请上传英雄图片.</p>
+        </div>
+
         <button type="submit" class="btn btn-success">点击保存</button>
     </form>
 </div>
 <script src="/node_modules/jquery/dist/jquery.js"></script>
 
 <script>
-    $('#form').on('submit', function (e) {
-        // 禁用表单的默认提交行为
-        e.preventDefault();
-
-        // 自己手动控制提交
-        $.ajax({
-            url: '/add',
-            type: 'post',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (data) {
-                console.log(data)
-            }
-        })
-    })
+    //    $('#form').on('submit', function (e) {
+    //        // 禁用表单的默认提交行为
+    //        e.preventDefault();
+    //
+    //        // 自己手动控制提交
+    //        $.ajax({
+    //            url: '/add',
+    //            type: 'post',
+    //            data: $(this).serialize(),
+    //            dataType: 'json',
+    //            success: function (data) {
+    //                console.log(data)
+    //            }
+    //        })
+    //    })
 </script>
 </body>
 

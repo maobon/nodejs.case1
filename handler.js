@@ -18,11 +18,15 @@ var model = require('./model');
  * @param res
  */
 exports.showIndex = function (req, res) {
-    // 开放首页
-    fs.readFile('./db.json', 'utf8', function (err, data) {
-        if (err) throw err;
 
-        data = JSON.parse(data);
+    model.queryAll(function (err, data) {
+        if (err) {
+            res.end(JSON.stringify({
+                err_code: 500,
+                message: err.message
+            }));
+        }
+
         res.render('index', data);
     })
 };
@@ -51,7 +55,7 @@ exports.showHeroInfo = function (req, res) {
             hero: hero
         });
     })
-}
+};
 
 
 /**
@@ -78,7 +82,7 @@ exports.showEditHeroInfo = function (req, res) {
             hero: hero
         });
     })
-}
+};
 
 /**
  * 编辑某一位英雄的信息
@@ -106,7 +110,7 @@ exports.doEditHeroInfo = function (req, res) {
 
     });
 
-}
+};
 
 
 /**
@@ -145,55 +149,6 @@ exports.doAdd = function (req, res) {
         console.log(fields);
         console.log(files.avatar);
     });
-    // content = decodeURI(content);
-
-    // 将查询字符串格式的数据转为{ }
-    // var body = {};
-    // content.split('&').forEach(function (item) {
-    //     var temp = item.split('=');
-    //     body[temp[0]] = temp[1];
-    // });
-
-    // 先查询数据库文件 修改后再写回去
-    // fs.readFile('./db.json', function (err, data) {
-    //     // 读文件 data是string类型
-    //
-    //     if (err) {
-    //         res.end(JSON.stringify({
-    //             err_code: 500,
-    //             message: err.message
-    //         }))
-    //     }
-    //
-    //     // String转{ }
-    //     data = JSON.parse(data);
-    //     data.heros.push({
-    //         id: 88,
-    //         name: body.name,
-    //         gender: body.gender,
-    //         avatar: 'img/133.jpg'
-    //     });
-    //
-    //     // { }转String 准备写入数据库
-    //     data = JSON.stringify(data, null, '    ');
-    //
-    //     // 写入数据库
-    //     fs.writeFile('./db.json', data, function (err) {
-    //         if (err) {
-    //             // 发生错误 返回错误信息给服务端 JSON格式
-    //             res.end(JSON.stringify({
-    //                 err_code: 500,
-    //                 message: err.message
-    //             }))
-    //         }
-    //
-    //         // 写入成功 返回给客户端
-    //         res.end(JSON.stringify({
-    //             err_code: 0,
-    //         }));
-    //     })
-    // })
-
 
 };
 

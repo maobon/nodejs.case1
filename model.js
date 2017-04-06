@@ -74,7 +74,7 @@ exports.queryHeroById = function (id, callback) {
             }
         });
     })
-}
+};
 
 
 /**
@@ -118,7 +118,7 @@ exports.addHero = function (hero, callback) {
         })
 
     })
-}
+};
 
 
 /**
@@ -154,5 +154,5 @@ exports.updateById = function (hero, callback) {
             }
         })
     })
-}
+};
 

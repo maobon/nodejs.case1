@@ -37,6 +37,8 @@
             <td>{{ $value.name }}</td>
             <td>{{ $value.gender }}</td>
             <td><img src="{{ $value.avatar }}" alt=""></td>
+
+            <!-- operations 携带被点击item的id进行跳转 添加到url上面 -->
             <td>
                 <a href="/info?id={{ $value.id }}">查看</a>
                 <a href="/edit?id={{ $value.id }}">编辑</a>

@@ -111,6 +111,29 @@ exports.doEditHeroInfo = function (req, res) {
 
         var body = fields;
 
+        if (files.avatar.size === 0) {
+            // 用原来的
+            body.avatar = fields.origin_avatar;
+            fs.unlink(files.avatar.path);
+
+        } else {
+
+            body.avatar = files.avatar.path;
+        }
+
+        // 修改库中的英雄信息
+        model.updateById(body, function (err) {
+            if (err) {
+                return res.end(JSON.stringify({
+                    err_code: 500,
+                    message: err.message
+                }))
+            }
+
+            res.end(JSON.stringify({
+                err_code: 0
+            }))
+        })
 
     });
 

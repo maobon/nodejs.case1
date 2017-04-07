@@ -49,40 +49,11 @@
             "avatar": "img/123.jpg"
         },
         {
-            "name": "测试1",
+            "name": "ddffdd",
             "gender": "男",
-            "avatar": "img/upload_27ed5badbf73fc90f34a2441271fe570.jpg",
-            "id": 9
-        },
-        {
-            "name": "测试1",
-            "gender": "男",
-            "avatar": "img/upload_fe451c4f608fcc5e8beecc97568b9699.jpg",
-            "id": 10
-        },
-        {
-            "name": "测试2",
-            "gender": "女",
-            "avatar": "img/upload_4cca3a82c217daf65a8d3ac8b777a5bd.jpg",
-            "id": 11
-        },
-        {
-            "name": "测试3",
-            "gender": "男",
-            "avatar": "img/upload_63083a12774e515c5d37310a9d96e4b8.jpg",
-            "id": 12
-        },
-        {
-            "name": "测试3",
-            "gender": "男",
-            "avatar": "img/upload_2d2040dee5578abfb6110de9a97c5538.jpg",
-            "id": 13
-        },
-        {
-            "name": "无语",
-            "gender": "女",
-            "avatar": "img/upload_7a6f3c5dbfd60df114b36dd1baef3ddf.jpg",
-            "id": 14
+            "avatar": "img/upload_b732309c250a8e1bd74374809dfefd20.jpg",
+            "id": 9,
+            "origin_avatar": "img/upload_b732309c250a8e1bd74374809dfefd20.jpg"
         }
     ]
 }

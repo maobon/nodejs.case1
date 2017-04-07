@@ -39,7 +39,9 @@ exports.showIndex = function (req, res) {
  */
 exports.showHeroInfo = function (req, res) {
 
-    // **** 待处理
+    // req.query 使用node url核心模块
+    // 直接将请求路径中的查询字符串转为对象 作为一个属性 添加到req对象上面
+    // 此处直接使用
     var heroId = req.query.id;
 
     model.queryHeroById(heroId, function (err, hero) {
@@ -66,7 +68,9 @@ exports.showHeroInfo = function (req, res) {
  */
 exports.showEditHeroInfo = function (req, res) {
 
-    // **** 待处理
+    // 之前 req.query 使用node url核心模块
+    // 直接将请求路径中的查询字符串转为对象 作为一个属性 添加到req对象上面
+    // 此处直接使用
     var heroId = req.query.id;
 
     model.queryHeroById(heroId, function (err, hero) {
@@ -134,22 +138,39 @@ exports.showAdd = function (req, res) {
  */
 exports.doAdd = function (req, res) {
 
-    // parse a file upload
+    // formidable插件 处理带有文件的表单上传
     var form = new formidable.IncomingForm();
 
     form.uploadDir = "./img/"; // 配置上传的文件保存路径
-
     form.keepExtensions = true; // 保持文件扩展名
 
+    // 获取客户端传递过来的参数
     form.parse(req, function (err, fields, files) {
         if (err) {
-            throw err
+            throw err;
         }
 
-        console.log(fields);
-        console.log(files.avatar);
-    });
+        // 表单数据
+        var body = fields;
+        // 头像
+        body.avatar = files.avatar.path;
 
+        // 写入数据库
+        model.addHero(body, function (err) {
+            if (err) {
+                return res.end(JSON.stringify({
+                    err_code: 500,
+                    message: err.message
+                }));
+            }
+
+            // 写入db成功后返回给客户端 写入成功
+            res.end(JSON.stringify({
+                err_code: 0
+            }));
+        })
+
+    });
 };
 
 

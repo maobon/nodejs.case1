@@ -15,8 +15,8 @@ module.exports = function (req, res) {
 
     // NodeJS 核心模块 url模块 方便处理URL
     var parseObj = url.parse(reqUrl, true);
-    var pathname = parseObj.pathname;
 
+    var pathname = parseObj.pathname;
     req.query = parseObj.query;
 
 
@@ -28,7 +28,8 @@ module.exports = function (req, res) {
     }
 
     /**
-     * add 添加英雄
+     * add 添加
+     * 英雄
      */
     else if (method === 'get' && pathname === '/add') {
         handler.showAdd(req, res);
@@ -47,14 +48,16 @@ module.exports = function (req, res) {
     }
 
     /**
-     * 查询某一位英雄的信息
+     * 查询
+     * 某一位英雄的信息
      */
     else if (method === 'get' && pathname === '/info') {
         handler.showHeroInfo(req, res);
     }
 
     /**
-     * 编辑某一位英雄的信息
+     * 编辑
+     * 某一位英雄的信息
      */
     else if (method === 'get' && pathname === '/edit') {
         handler.showEditHeroInfo(req, res);

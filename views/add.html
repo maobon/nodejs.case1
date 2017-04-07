@@ -9,7 +9,6 @@
         .hero-list img {
             width: 50px;
         }
-
     </style>
 </head>
 
@@ -50,7 +49,6 @@
 
         <div class="form-group">
             <label for="exampleInputFile">英雄图片</label>
-
             <!-- 别忘了加上 name属性 -->
             <input type="file" id="avatar" name="avatar">
             <p class="help-block">请上传英雄图片.</p>
@@ -70,11 +68,12 @@
         // XMLHttpRequest2 新增的 FormData对象 支持异步上传文件
 
         // 使用FormData手动组件表单
-//        var formData = new FormData();
-//        formData.append('name', "辛奕");
-//        formData.append('gender', "28");
-//        formData.append('avatar', $("#avatar")[0].files[0]);
+        // var formData = new FormData();
+        // formData.append('name', "辛奕");
+        // formData.append('gender', "28");
+        // formData.append('avatar', $("#avatar")[0].files[0]);
 
+        // 基于表单Form dom对象 构建formData
         // 还可以直接传一个表单的DOM对象 到FormData的构造函数中
         var formData = new FormData($("#form")[0]);
 
@@ -83,12 +82,13 @@
             url: '/add',
             type: 'post',
             data: formData,
-            processData: false, //
-            contentType: false,
-            // data: $(this).serialize(),
+            processData: false, // 阻止jQuery默认数据处理
+            contentType: false, // 阻止jQuery默认数据处理
             dataType: 'json',
             success: function (data) {
-                console.log(data)
+                if (data.err_code === 0) {
+                    window.location.href = '/';
+                }
             }
         })
     })

@@ -33,7 +33,7 @@ function queryAll(callback) {
  */
 function saveIntoDB(data, callback) {
     // 写会数据库 {} -> String
-    fs.writeFile(dbPath, JSON.stringify(data), function (err) {
+    fs.writeFile(dbPath, JSON.stringify(data, null, '    '), function (err) {
         if (err) {
             callback(err);
         }

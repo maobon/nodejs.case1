@@ -13,6 +13,13 @@ var template = require('art-template');
 module.exports = function (res) {
 
     // 向response对象上面添加一个属性render 也是一个方法
+
+    /**
+     * 真实数据渲染页面
+     *
+     * @param tplName  模板名称
+     * @param data     真实数据
+     */
     res.render = function (tplName, data) {
         // 根据模板名 组建模板路径
         var tplPath = './views/' + tplName + '.html';

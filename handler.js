@@ -212,6 +212,42 @@ exports.handleStaticRes = function (req, res) {
     })
 };
 
+/**
+ * 上传头像预览
+ *
+ * @param req
+ * @param res
+ */
+exports.doUpload = function (req, res) {
+
+    // formidable插件 处理带有文件的表单上传
+    var form = new formidable.IncomingForm();
+
+    form.uploadDir = "./upload/"; // 配置上传的文件保存路径
+    form.keepExtensions = true; // 保持文件扩展名
+
+    // 获取客户端传递过来的参数
+    form.parse(req, function (err, fields, files) {
+        if (err) {
+            return res.end(JSON.stringify({
+                err_code: 500,
+                message: err.message
+            }));
+        }
+
+        var body = fields;
+        // 临时头像 预览使用
+        body.avatar = files.avatar.path;
+
+        //console.log("upload head path = " + body.avatar);
+
+        res.end(JSON.stringify({
+            err_code: 0,
+            result: '/' + body.avatar
+        }))
+    });
+
+}
 
 
 

@@ -42,7 +42,7 @@ module.exports = function (req, res) {
      * 开放访问静态资源
      */
     else if (method === 'get' && pathname.indexOf('/node_modules/') === 0
-        || pathname.indexOf('/img/') === 0) {
+        || pathname.indexOf('/img/') === 0 || pathname.indexOf('/upload/') === 0) {
 
         handler.handleStaticRes(req, res);
     }
@@ -63,6 +63,14 @@ module.exports = function (req, res) {
         handler.showEditHeroInfo(req, res);
     } else if (method === 'post' && pathname === '/edit') {
         handler.doEditHeroInfo(req, res);
+    }
+
+
+    /**
+     * 上传图片预览接口
+     */
+    else if (method === 'post' && pathname === '/upload') {
+        handler.doUpload(req, res);
     }
 
 };

@@ -176,7 +176,9 @@ exports.doAdd = function (req, res) {
         // 表单数据
         var body = fields;
         // 头像
-        body.avatar = files.avatar.path;
+        // body.avatar = files.avatar.path;
+
+        body.avatar = body.avatar_src;
 
         // 写入数据库
         model.addHero(body, function (err) {
@@ -238,8 +240,6 @@ exports.doUpload = function (req, res) {
         var body = fields;
         // 临时头像 预览使用
         body.avatar = files.avatar.path;
-
-        //console.log("upload head path = " + body.avatar);
 
         res.end(JSON.stringify({
             err_code: 0,

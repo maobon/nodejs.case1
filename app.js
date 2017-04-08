@@ -13,6 +13,7 @@ var router = require('./router');
 var server = http.createServer();
 
 server.on('request', function (req, res) {
+
     // 初始化 render
     render(res);
 

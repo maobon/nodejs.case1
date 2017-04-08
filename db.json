@@ -1,52 +1,17 @@
 {
   "heros": [
     {
-      "id": 1,
-      "name": "王光明",
-      "gender": "男",
-      "avatar": "img/131.jpg"
-    },
-    {
-      "id": 2,
-      "name": "王老吉",
-      "gender": "男",
-      "avatar": "img/133.jpg"
-    },
-    {
-      "id": 3,
-      "name": "李明月",
-      "gender": "女",
-      "avatar": "img/134.jpg"
-    },
-    {
-      "id": 4,
-      "name": "侯思羽",
-      "gender": "女",
-      "avatar": "img/152.jpg"
-    },
-    {
       "id": 5,
       "name": "郭文成",
       "gender": "男",
       "avatar": "img/154.jpg"
     },
     {
-      "id": 6,
-      "name": "李春燕",
+      "name": "saonv",
       "gender": "女",
-      "avatar": "img/167.jpg"
-    },
-    {
-      "id": 7,
-      "name": "赵盟",
-      "gender": "男",
-      "avatar": "img/108.jpg"
-    },
-    {
-      "id": 8,
-      "name": "辛奕",
-      "gender": "男",
-      "avatar": "img/123.jpg"
+      "avatar_src": "/upload/upload_5f21749c80dd2b0a4ad5056b029df224.jpg",
+      "avatar": "/upload/upload_5f21749c80dd2b0a4ad5056b029df224.jpg",
+      "id": 9
     }
   ]
 }

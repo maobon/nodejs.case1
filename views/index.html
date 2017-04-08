@@ -22,6 +22,7 @@
 </header>
 <div class="container hero-list">
     <a class="btn btn-success pull-right" href="/add">添加英雄</a>
+
     <table class="table table-hover">
         <thead>
         <th>编号</th>
@@ -30,7 +31,8 @@
         <th>头像</th>
         <th>操作</th>
         </thead>
-        <tbody>
+
+        <tbody id="containerId">
         {{ each heros }}
         <tr>
             <td>{{ $value.id }}</td>
@@ -42,15 +44,76 @@
             <td>
                 <a href="/info?id={{ $value.id }}">查看</a>
                 <a href="/edit?id={{ $value.id }}">编辑</a>
-                <a href="">删除</a>
+                <a href="/delete?id={{ $value.id }}" class="btn-delete">删除</a>
             </td>
         </tr>
         {{ /each }}
         </tbody>
     </table>
 </div>
+
 <script src="/node_modules/jquery/dist/jquery.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/node_modules/art-template/dist/template-native.js"></script>
+
+<script type="text/template" id="templateId">
+    <% heros.forEach(function(item){ %>
+    <tr>
+        <td><%= item.id %></td>
+        <td><%= item.name %></td>
+        <td><%= item.gender %></td>
+
+        <td><img src="<%= item.avatar %>" alt=""></td>
+        <td>
+            <a href="/info?id=<%= item.id %>">查看</a>
+            <a href="/edit?id=<%= item.id %>">编辑</a>
+            <a href="/delete?id=<%= item.id %>" class="btn-delete">删除</a>
+        </td>
+    </tr>
+    <% }) %>
+</script>
+
+<script>
+    window.onload = function () {
+
+
+        $("#containerId").on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+
+            console.log('删除按钮被点击' + url);
+
+            $.ajax({
+                type: 'get',
+                url: url,
+                dataType: 'json',
+                success: function (data) {
+                    // console.log(data);
+
+                    if (data.err_code === 0) {
+                        $.ajax({
+                            type: 'get',
+                            url: '/checkall',
+                            dataType: 'json',
+                            success: function (data) {
+                                data = data.result;
+                                // console.log(data);
+
+                                var html = template('templateId', data);
+                                // console.log(html);
+                                $("#containerId").html(html);
+                            }
+                        })
+                    }
+
+                }
+            })
+        })
+
+
+    };
+</script>
 
 </body>
 </html>

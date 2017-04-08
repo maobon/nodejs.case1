@@ -76,6 +76,42 @@ exports.queryHeroById = function (id, callback) {
     })
 };
 
+/**
+ *
+ * @param id
+ * @param callback
+ */
+exports.deleteHeroById = function (id, callback) {
+    id = parseInt(id);
+
+    queryAll(function (err, data) {
+        if (err) {
+            return callback(err);
+        }
+
+        var heros = data.heros;
+
+        heros.some(function (item, index) {
+            if (item.id === id) {
+
+                heros.splice(index, 1);
+                // 写回去
+                saveIntoDB(data, function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+
+                    callback(null);
+                })
+
+                return true; // return true 终止遍历操作
+            }
+        });
+
+    })
+
+}
+
 
 /**
  * 增加英雄

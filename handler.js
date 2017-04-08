@@ -61,7 +61,7 @@ exports.showHeroInfo = function (req, res) {
 
 
 /**
- * 查看某位英雄的信息
+ * 编辑某位英雄的信息
  *
  * @param req
  * @param res
@@ -243,11 +243,58 @@ exports.doUpload = function (req, res) {
 
         res.end(JSON.stringify({
             err_code: 0,
-            result: '/' + body.avatar
+            result: '/' + body.avatar // 返回上传成功后的头像的地址
         }))
     });
+};
 
-}
+/**
+ * 查询全部英雄
+ *
+ * @param req
+ * @param res
+ */
+exports.getAllHero = function (req, res) {
+
+    model.queryAll(function (err, data) {
+        if (err) {
+            res.end(JSON.stringify({
+                err_code: 500,
+                message: err.message
+            }));
+        }
+
+        res.end(JSON.stringify({
+            err_code: 0,
+            result: data
+        }))
+    })
+
+};
+
+/**
+ *
+ * @param req
+ * @param res
+ */
+exports.deleteHero = function (req, res) {
+    var heroId = req.query.id;
+    console.log('heroId = ' + heroId);
+
+    model.deleteHeroById(heroId, function (err) {
+        if (err) {
+            res.end(JSON.stringify({
+                err_code: 500,
+                message: err.message
+            }))
+        }
+
+        res.end(JSON.stringify({
+            err_code: 0
+        }))
+    })
+};
+
 
 
 

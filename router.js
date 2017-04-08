@@ -73,4 +73,18 @@ module.exports = function (req, res) {
         handler.doUpload(req, res);
     }
 
+    /**
+     * 查看全部英雄 单纯请求数据
+     */
+    else if (method === 'get' && pathname === '/checkall') {
+        handler.getAllHero(req, res);
+    }
+
+    /**
+     *
+     */
+    else if (method === 'get' && pathname === '/delete') {
+        handler.deleteHero(req, res);
+    }
+
 };

@@ -22,7 +22,6 @@
 </header>
 <div class="container hero-list">
     <a class="btn btn-success pull-right" href="/add">添加英雄</a>
-
     <table class="table table-hover">
         <thead>
         <th>编号</th>
@@ -31,7 +30,6 @@
         <th>头像</th>
         <th>操作</th>
         </thead>
-
         <tbody id="containerId">
         {{ each heros }}
         <tr>
@@ -76,41 +74,51 @@
 <script>
     window.onload = function () {
 
-
+        /**
+         * 绑定事件代理 父容器绑定
+         * 该绑定操作发生在服务端渲染页面之后 首次请求页面是由服务端直接渲染完成发送给客户端呈现
+         * #containerId > class='btn-delete' 给删除按钮绑定事件
+         *
+         * 异步请求删除页面上的数据
+         * 点击删除按钮 -> ajax发送删除请求 -> 服务端逻辑删除库中的数据 -> 通知客户端删除完成 -> 客户端再次请求查库 -> 渲染为全新数据
+         * 整个流程没有发生页面的整体刷新 有比较好的用户体验
+         */
         $("#containerId").on('click', '.btn-delete', function (e) {
             e.preventDefault();
 
+            // 获取带有查询字符串的请求路径
             var url = $(this).attr('href');
 
-            console.log('删除按钮被点击' + url);
-
+            // 提交删除该item请求
             $.ajax({
                 type: 'get',
                 url: url,
                 dataType: 'json',
                 success: function (data) {
-                    // console.log(data);
-
                     if (data.err_code === 0) {
-                        $.ajax({
-                            type: 'get',
-                            url: '/checkall',
-                            dataType: 'json',
-                            success: function (data) {
-                                data = data.result;
-                                // console.log(data);
-
-                                var html = template('templateId', data);
-                                // console.log(html);
-                                $("#containerId").html(html);
-                            }
-                        })
+                        // 服务端删除数据库中的数据 成功后err_code为0 通知客户端删除完成
+                        // 客户端重新请求局部渲染生成全新的内容部分 重新请求服务端查库
+                        rerender();
                     }
-
                 }
             })
         })
 
+        /**
+         * 重新渲染生成内容部分
+         */
+        function rerender() {
+            $.ajax({
+                type: 'get',
+                url: '/checkall',
+                dataType: 'json',
+                success: function (data) {
+                    data = data.result;
+                    var html = template('templateId', data);
+                    $("#containerId").html(html);
+                }
+            })
+        }
 
     };
 </script>

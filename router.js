@@ -16,9 +16,12 @@ module.exports = function (req, res) {
     // NodeJS 核心模块 url模块 方便处理URL
     var parseObj = url.parse(reqUrl, true);
 
+    // pathname部分
+    // http://127.0.0.1:3000/a/b/c?username=xinyi&age=28
+    // pathname = /a/b/c  路径部分
+    // query = username=xinyi&age=28 查询字符串部分
     var pathname = parseObj.pathname;
     req.query = parseObj.query;
-
 
     /**
      * index 首页
@@ -81,7 +84,7 @@ module.exports = function (req, res) {
     }
 
     /**
-     *
+     * 点击删除某一位英雄
      */
     else if (method === 'get' && pathname === '/delete') {
         handler.deleteHero(req, res);

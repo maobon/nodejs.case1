@@ -51,7 +51,7 @@ exports.queryAll = queryAll;
 
 
 /**
- * 根据id查询应用
+ * 根据id查询英雄
  *
  * @param id
  * @param callback
@@ -77,6 +77,7 @@ exports.queryHeroById = function (id, callback) {
 };
 
 /**
+ * 根据该id对应的英雄
  *
  * @param id
  * @param callback
@@ -90,17 +91,15 @@ exports.deleteHeroById = function (id, callback) {
         }
 
         var heros = data.heros;
-
         heros.some(function (item, index) {
             if (item.id === id) {
-
+                // 根据当前遍历时的索引 从数组中删除该item
                 heros.splice(index, 1);
-                // 写回去
+                // 重新写回数据库中
                 saveIntoDB(data, function (err) {
                     if (err) {
                         return callback(err);
                     }
-
                     callback(null);
                 })
 
